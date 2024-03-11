@@ -1,0 +1,46 @@
+# Fichiers de configuration
+*.pyc
+*.pyo
+*.env
+
+# Fichiers générés par Django
+__pycache__/
+*.sqlite3
+*.pyc
+*.pyo
+*.pyd
+*.pyi
+*.egg-info/
+*.egg
+dist/
+build/
+*.log
+
+# Fichiers de médias et de fichiers statiques
+media/
+static/
+
+# Fichiers de dépendances
+venv/
+.env
+
+# Fichiers de sauvegarde
+*.bak
+*.swp
+*~
+
+# Fichiers de l'IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Fichiers de déploiement
+*.env
+*.env.*
+*.env.local
+*.env.dev
+*.env.prod
+*.env.staging
+*.env.test
+*.env.example
