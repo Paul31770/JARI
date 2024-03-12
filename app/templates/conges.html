@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des congés</title>
+</head>
+<body>
+    <h1>Congés</h1>
+    <p>Coucou</p>
+    <ul>
+        {% for conge in conges %}
+            <li>{{ conge.date_debut }} - {{ conge.date_fin }}: {{ conge.raison }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

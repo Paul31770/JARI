@@ -57,3 +57,8 @@ class RequiredTask(models.Model):
 class TaskSubtask(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='subtasks')
     subtask = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='parent_task')
+
+class Conges(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_debut = models.DateField()
+    date_fin = models.DateField()
