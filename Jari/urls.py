@@ -18,8 +18,11 @@ from django.contrib import admin
 from django.urls import path
 
 from app.views import *
+from app.views import *
 
 urlpatterns = [
     path('', index),
     path('project/<int:project_id>/', project, name='project'),
+    path('admin/', admin.site.urls),
+    path('drag/', drag_drop),
 ]

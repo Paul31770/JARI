@@ -1,0 +1,95 @@
+<!-- templates/drag_drop.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop</title>
+    <!-- <link rel="stylesheet" href="/app/styles/drag.css"> -->
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        h1{
+            color: red;
+        }
+        .container {
+            display: flex;
+          }
+          
+          .column {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            min-height: 200px;
+            width: 100px;
+          }
+          
+          .column div {
+            margin: 5px;
+            padding: 10px;
+            background-color: #eee;
+            cursor: move;
+          }
+          
+    </style>
+</head>
+<body>
+<!-- <div id="column1" class="column">
+    {% for item in all_items %}
+        {% if item.column == 'column1' %}
+            <p>{{ item.name }}</p>
+        {% endif %}
+    {% endfor %}
+</div> -->
+
+<div id="column2" class="column">
+    {% for task in all_name %}
+        <p>{{ task.title }} - {{ task.get_status_display }}</p>
+    {% endfor %}
+</div>
+
+<div class="container">
+    <div class="column" id="column1" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <div id="item1" draggable="true" ondragstart="drag(event)">Item 1</div>
+      <div id="item2" draggable="true" ondragstart="drag(event)">Item 2</div>
+      <div id="item3" draggable="true" ondragstart="drag(event)">Item 3</div>
+    </div>
+    <div class="column" id="column2" ondrop="drop(event)" ondragover="allowDrop(event)">
+    </div>
+    <div class="column" id="column3" ondrop="drop(event)" ondragover="allowDrop(event)">
+    </div>
+    <div class="column" id="column4" ondrop="drop(event)" ondragover="allowDrop(event)">
+    </div>
+</div>
+
+
+<script>
+    function allowDrop(event) {
+        event.preventDefault();
+      }
+      
+      function drag(event) {
+        event.dataTransfer.setData("text", event.target.id);
+      }
+      
+      function drop(event) {
+        event.preventDefault();
+        var data = event.dataTransfer.getData("text");
+        var draggedElement = document.getElementById(data);
+        var column = event.target.closest('.column');
+      
+        // Vérifie si l'élément est déposé dans une colonne
+        if (column) {
+          column.appendChild(draggedElement);
+        }
+      }
+      
+
+</script>
+
+</body>
+</html>
