@@ -18,7 +18,6 @@ build/
 
 # Fichiers de médias et de fichiers statiques
 media/
-static/
 
 # Fichiers de dépendances
 venv/
