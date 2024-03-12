@@ -51,6 +51,9 @@ class Command(BaseCommand):
 
       task5 = Task(title="task five", description="test", status="planned", start_date="2024-03-12", priority=1, advancement=1, project=project)
       task5.save()
+      
+      task6 = Task(title="task six", description="test", status="planned", start_date="2024-03-12", priority=1, advancement=1, project=project)
+      task6.save()
 
       # Creation d'un role pour tester
       role = Role(name="testRole")

@@ -57,7 +57,3 @@ class RequiredTask(models.Model):
 class TaskSubtask(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='subtasks')
     subtask = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='parent_task')
-
-class Item(models.Model):
-    name = models.CharField(max_length=255)
-    column = models.CharField(max_length=50)

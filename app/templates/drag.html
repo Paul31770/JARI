@@ -38,36 +38,61 @@
     </style>
 </head>
 <body>
-<!-- <div id="column1" class="column">
-    {% for item in all_items %}
-        {% if item.column == 'column1' %}
-            <p>{{ item.name }}</p>
-        {% endif %}
+
+
+    <!-- {% for task in all_name %}
+    <div >
+        <p>{{ task.title}}</p>
+        <p>{{ task.status}}</p>
+        <p>{{ task.get_status_display }}</p>
+    </div>
+    {% endfor %} -->
+
+    <div class="container">
+        <div class="column" id="in_progress" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <p>In Progress</p>
+            {% for progress in progress%}
+            <div id="{{progress.title}}" draggable="true" ondragstart="drag(event)">{{progress.title}}</div>
+            {% endfor %}
+        </div>
+        <div class="column" id="paused" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <p>Paused</p>
+            {% for paused in paused%}
+            <div id="{{paused.title}}" draggable="true" ondragstart="drag(event)">{{paused.title}}</div>
+            {% endfor %}
+        </div>
+        <div class="column" id="completed" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <p>Completed</p>
+            {% for completed in completed%}
+            <div id="{{completed.title}}" draggable="true" ondragstart="drag(event)">{{completed.title}}</div>
+            {% endfor %}
+        </div>
+        <div class="column" id="validated" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <p>Validated</p>
+            {% for validated in validated%}
+            <div id="{{validated.title}}" draggable="true" ondragstart="drag(event)">{{validated.title}}</div>
+            {% endfor %}
+        </div>
+        <div class="column" id="planed" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <p>Planed</p>
+            {% for planed in planed%}
+            <div id="{{planed.title}}" draggable="true" ondragstart="drag(event)">{{planed.title}}</div>
+            {% endfor %}
+        </div>
+    </div>
+<!-- <div class="container">
+    {% for task in all_name %}
+    <p>{{ task.get_status_display }}</p>
+    <div class="column" id="column1" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <p>{{task.get_status_display}}</p>
+        <p>{{task.status}}</p>
+    </div>
     {% endfor %}
 </div> -->
 
-<div id="column2" class="column">
-    {% for task in all_name %}
-        <p>{{ task.title }} - {{ task.get_status_display }}</p>
-    {% endfor %}
-</div>
-
-<div class="container">
-    <div class="column" id="column1" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <div id="item1" draggable="true" ondragstart="drag(event)">Item 1</div>
-      <div id="item2" draggable="true" ondragstart="drag(event)">Item 2</div>
-      <div id="item3" draggable="true" ondragstart="drag(event)">Item 3</div>
-    </div>
-    <div class="column" id="column2" ondrop="drop(event)" ondragover="allowDrop(event)">
-    </div>
-    <div class="column" id="column3" ondrop="drop(event)" ondragover="allowDrop(event)">
-    </div>
-    <div class="column" id="column4" ondrop="drop(event)" ondragover="allowDrop(event)">
-    </div>
-</div>
-
 
 <script>
+
     function allowDrop(event) {
         event.preventDefault();
       }
