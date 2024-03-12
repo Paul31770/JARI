@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from app.models import *
-# Create your views here.
+from django.http import HttpResponse
+
 def drag_drop(request):
     # Item.objects.create(name='CCS', column='column1')
     # Item.objects.create(name='TARZ', column='column2')
@@ -9,10 +10,6 @@ def drag_drop(request):
     print("all items ", all_items)
     print("all name ",all_name)
     return render(request, 'drag.html',  context={'all_items': all_items, 'all_name': all_name})
-
-    
-from django.http import HttpResponse, Http404
-from .models import *
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
