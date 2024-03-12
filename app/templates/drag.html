@@ -44,15 +44,13 @@
             <p>{{ item.name }}</p>
         {% endif %}
     {% endfor %}
-</div>
+</div> -->
 
 <div id="column2" class="column">
-    {% for item in all_items %}
-        {% if item.column == 'column2' %}
-            <p>{{ item.name }}</p>
-        {% endif %}
+    {% for task in all_name %}
+        <p>{{ task.title }} - {{ task.get_status_display }}</p>
     {% endfor %}
-</div> -->
+</div>
 
 <div class="container">
     <div class="column" id="column1" ondrop="drop(event)" ondragover="allowDrop(event)">
