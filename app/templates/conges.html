@@ -1,15 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des congés</title>
 </head>
 <body>
-    <h1>Congés</h1>
-    <p>Coucou</p>
-    <ul>
-        {% for conge in conges %}
-            <li>{{ conge.date_debut }} - {{ conge.date_fin }}: {{ conge.raison }}</li>
-        {% endfor %}
-    </ul>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 10px; /* Ajoute un espace de 10px entre les cellules */
+        }
+    
+        th, td {
+            padding: 10px; /* Ajoute un espace de 10px à l'intérieur des cellules */
+            border: 1px solid black; /* Ajoute une bordure autour des cellules */
+        }
+    </style>
+    <h1>Liste des congés</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Utilisateur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for conge in conges %}
+            <tr>
+                <td>{% if conge.date_debut %}{{ conge.date_debut|date:'d/m/Y' }}{% else %}N/A{% endif %}</td>
+                <td>{% if conge.date_fin %}{{ conge.date_fin|date:'d/m/Y' }}{% else %}N/A{% endif %}</td>
+                <td>{{ conge.user_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
 </body>
 </html>
