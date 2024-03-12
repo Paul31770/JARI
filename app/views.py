@@ -21,3 +21,8 @@ def project(request, project_id):
         return render(request, '404.html', {'message': 'Project not found'})
     
     return render(request, 'project.html', {'project': project})
+
+def projects(request):
+    projects = Project.objects.all()
+    projects = projects[0], projects[0], projects[0], projects[0], projects[0], projects[0],
+    return render(request, 'projects.html', {'projects': projects})
