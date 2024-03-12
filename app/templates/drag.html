@@ -7,23 +7,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drag and Drop</title>
-    <link rel="stylesheet" href="/app/styles/drag.css">
+    <!-- <link rel="stylesheet" href="/app/styles/drag.css"> -->
     <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
         h1{
             color: red;
         }
-        div{
+        .container {
+            display: flex;
+          }
+          
+          .column {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            min-height: 200px;
             width: 100px;
-            height: 100px;
-        }
+          }
+          
+          .column div {
+            margin: 5px;
+            padding: 10px;
+            background-color: #eee;
+            cursor: move;
+          }
+          
     </style>
 </head>
 <body>
-<h1>JE SUIS LA</h1>
-<div id="column1" class="column">
+<!-- <div id="column1" class="column">
     {% for item in all_items %}
         {% if item.column == 'column1' %}
-            <div class="draggable-item" data-item-id="{{ item.id }}">{{ item.name }}</div>
+            <p>{{ item.name }}</p>
         {% endif %}
     {% endfor %}
 </div>
@@ -31,48 +49,48 @@
 <div id="column2" class="column">
     {% for item in all_items %}
         {% if item.column == 'column2' %}
-            <div class="draggable-item" data-item-id="{{ item.id }}">{{ item.name }}</div>
+            <p>{{ item.name }}</p>
         {% endif %}
     {% endfor %}
+</div> -->
+
+<div class="container">
+    <div class="column" id="column1" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <div id="item1" draggable="true" ondragstart="drag(event)">Item 1</div>
+      <div id="item2" draggable="true" ondragstart="drag(event)">Item 2</div>
+      <div id="item3" draggable="true" ondragstart="drag(event)">Item 3</div>
+    </div>
+    <div class="column" id="column2" ondrop="drop(event)" ondragover="allowDrop(event)">
+    </div>
+    <div class="column" id="column3" ondrop="drop(event)" ondragover="allowDrop(event)">
+    </div>
+    <div class="column" id="column4" ondrop="drop(event)" ondragover="allowDrop(event)">
+    </div>
 </div>
 
 
 <script>
-    $(function() {
-        console.log("Le code JavaScript est en cours d'exécution.");
-    
-        $(".draggable-item").draggable({
-            revert: "invalid",
-            helper: "clone"
-        });
-    
-        $(".column").droppable({
-            accept: ".draggable-item",
-            drop: function(event, ui) {
-                var itemId = ui.draggable.data("item-id");
-                var newColumn = $(this).attr("id");
-    
-                $.ajax({
-                    url: "/update_column/",
-                    type: "POST",
-                    data: {
-                        item_id: itemId,
-                        new_column: newColumn,
-                        csrfmiddlewaretoken: "{{ csrf_token }}"
-                    },
-                    success: function(data) {
-                        // Mettez à jour dynamiquement le contenu de la colonne
-                        $("#" + newColumn).append(ui.draggable.clone());
-                        ui.helper.remove();  // Supprimez le clone de l'élément
-    
-                        // Vous pouvez ajouter d'autres actions de mise à jour ici
-                    }
-                });
-            }
-        });
-        console.log("Le code JavaScript est finie.");
-    });
-    
+    function allowDrop(event) {
+        event.preventDefault();
+      }
+      
+      function drag(event) {
+        event.dataTransfer.setData("text", event.target.id);
+      }
+      
+      function drop(event) {
+        event.preventDefault();
+        var data = event.dataTransfer.getData("text");
+        var draggedElement = document.getElementById(data);
+        var column = event.target.closest('.column');
+      
+        // Vérifie si l'élément est déposé dans une colonne
+        if (column) {
+          column.appendChild(draggedElement);
+        }
+      }
+      
+
 </script>
 
 </body>
