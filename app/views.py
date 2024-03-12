@@ -9,6 +9,6 @@ def project(request, project_id):
     try:
         project = Project.objects.get(id=project_id)
     except Project.DoesNotExist:
-        raise Http404("Project does not exist")
+        return render(request, '404.html', {'message': 'Project not found'})
     
     return render(request, 'project.html', {'project': project})

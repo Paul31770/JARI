@@ -10,10 +10,20 @@ html{
   font-family: 'Roboto', sans-serif;
 }
 
+h1, h2, h3, h4{
+  margin: 0px;
+}
+
 h1{
   font-size: 3rem;
-  font-weight: 700;
-  margin: 0px;
+}
+
+h2 {
+  font-size: 2.6rem;
+}
+
+h3 {
+  font-size: 2.2rem;
 }
 
 nav{
@@ -31,7 +41,22 @@ footer {
   border-top: 1px solid #a9a9a9;
 }
 
-.flex-center-v{
+.f{
   display: flex;
+}
+
+.jc{
+  justify-content: center;
+}
+
+.ai{
   align-items: center;
+}
+
+.column{
+  flex-direction: column;
+}
+
+.row{
+  flex-direction: row;
 }
