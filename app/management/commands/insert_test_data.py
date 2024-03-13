@@ -33,23 +33,32 @@ class Command(BaseCommand):
       user.save()
 
       # Creation d'un projet pour tester
-      project = Project(title="Project One.", start_date="2024-03-12", delivery_date="2024-03-12", manager=user)
+      project = Project(title="Création d'une site e-commerce", start_date="2024-03-10", delivery_date="2024-04-12", manager=user)
       project.save()
 
+      project2 = Project(title="Projet de test 1", start_date="2024-01-12", delivery_date="2025-03-12", manager=user)
+      project2.save()
+
+      project3 = Project(title="Projet test 2", start_date="2024-01-12", delivery_date="2025-03-12", manager=user)
+      project3.save()
+
+      project4 = Project(title="Projet sans contenu 3", start_date="2024-01-12", delivery_date="2025-03-12", manager=user)
+      project4.save()
+
       # Creation d'une tache pour tester
-      task1 = Task(title="task one", description="test", status="in_progress", start_date="2024-03-12", priority=1, advancement=1, project=project)
+      task1 = Task(title="Création de la page de login", description="Créer la page de login ainsi que tous ses composants UI", status="in_progress", start_date="2024-03-12", priority=2, advancement=34, project=project)
       task1.save()
 
-      task2 = Task(title="task two", description="test", status="paused", start_date="2024-03-12", priority=1, advancement=1, project=project)
+      task2 = Task(title="Création de la base de données", description="Créer la base de donnée ainsi que toutes ses tables, relations et y ajouter les données de test", status="paused", start_date="2024-03-12", priority=3, advancement=13, project=project)
       task2.save()
 
-      task3 = Task(title="task three", description="test", status="completed", start_date="2024-03-12", priority=1, advancement=1, project=project)
+      task3 = Task(title="Réaliser l'interface utilisateur", description="Réalisation du fronted de l'app", status="in_progress", start_date="2024-03-12", priority=2, advancement=78, project=project)
       task3.save()
 
-      task4 = Task(title="task four", description="test", status="validated", start_date="2024-03-12", priority=1, advancement=1, project=project)
+      task4 = Task(title="Faire le diagramme de la BDD", description="Afin de pouvoir créer notre base de donnée il est nécéssaire de réaliser en amont un diagramme", status="validated", start_date="2024-03-12", priority=2, advancement=100, project=project)
       task4.save()
 
-      task5 = Task(title="task five", description="test", status="planned", start_date="2024-03-12", priority=1, advancement=1, project=project)
+      task5 = Task(title="Deployer l'API dans le cloud azure", description="Il est demandé de paramétrer le cloud azure pour y déployer l'application", status="planned", start_date="2024-03-19", priority=2, advancement=0, project=project)
       task5.save()
 
       # Creation d'un role pour tester

@@ -12,7 +12,7 @@ def drag_drop(request):
     return render(request, 'drag.html',  context={'all_items': all_items, 'all_name': all_name})
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return HttpResponse("Home page")
 
 def project(request, project_id):
     try:
@@ -24,5 +24,7 @@ def project(request, project_id):
 
 def projects(request):
     projects = Project.objects.all()
-    projects = projects[0], projects[0], projects[0], projects[0], projects[0], projects[0],
     return render(request, 'projects.html', {'projects': projects})
+    
+def create_project(request):
+        return HttpResponse("Create project")

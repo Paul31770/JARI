@@ -26,4 +26,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('drag/', drag_drop),
     path('projects/', projects),
+    path('create_project/', create_project, name='create_project'),
 ]
