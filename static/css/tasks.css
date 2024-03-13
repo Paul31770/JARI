@@ -1,0 +1,9 @@
+
+#id_subtasks, #id_required_tasks{
+  height: 130px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 2px solid var(--primary);
+  border-radius: 5px;
+  width: 100%;
+}

@@ -39,15 +39,13 @@ def create_project(request):
     return render(request, 'projects/createProject.html', {'form': form})
 
 def create_task(request, project_id):
-    all_tasks = Task.objects.all()
-
     if request.method == 'POST':
-        form = TaskForm(request.POST)
-        form.project = project_id
+        form = TaskForm(request.POST, project_id=project_id)
         if form.is_valid():
+            form.instance.project_id = project_id
             form.save()
             return redirect(project, project_id)
     else:
-        form = TaskForm()
-    return render(request, 'createTask.html', {'form': form, 'all_tasks': all_tasks})
+        form = TaskForm(project_id=project_id)
+    return render(request, 'createTask.html', {'form': form})
 

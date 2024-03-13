@@ -25,7 +25,7 @@ class Project(models.Model):
 
 class Task(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
+    description = models.TextField()
     STATUS_CHOICES = (
         ('planned', 'Planned'),
         ('in_progress', 'In Progress'),
@@ -34,11 +34,13 @@ class Task(models.Model):
         ('paused', 'Paused'),
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='paused')
-    start_date = models.DateField(blank=True)
-    priority = models.IntegerField(blank=True)
-    est_days = models.IntegerField(blank=True)
+    start_date = models.DateField(null=True, blank=True)
+    priority = models.IntegerField()
+    est_days = models.IntegerField()
     advancement = models.IntegerField(default=0)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    subtasks = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='parent_tasks', verbose_name='Subtasks')
+    required_tasks = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='dependent_tasks', verbose_name='Required tasks')
 
     def __str__(self):
         return self.title
@@ -60,14 +62,6 @@ class UserRole(models.Model):
 class RolePermission(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
     permission = models.ForeignKey(Permission, on_delete=models.CASCADE)
-
-class RequiredTask(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='required_tasks')
-    required_task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='required_by_tasks')
-
-class TaskSubtask(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='subtasks')
-    subtask = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='parent_task')
 
 class Item(models.Model):
     name = models.CharField(max_length=255)

@@ -45,7 +45,11 @@ h3 {
   font-size: 2.2rem;
 }
 
-p {
+h4 {
+  font-size: 1.8rem;
+}
+
+p, label {
   font-size: 1.6rem;
 }
 
@@ -95,8 +99,17 @@ button:hover {
 input, select, textarea {
   padding: 7px 15px;
   border-radius: 5px;
-  border: 1px solid var(--primary);
+  border: 2px solid var(--primary);
   width: 100%;
+}
+
+textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  width: auto
 }
 
 form {
@@ -108,7 +121,7 @@ form {
   padding: 20px;
   border-radius: 10px;
   box-shadow: var(--box-shadow) var(--primary);
-  border: 2px solid var(--primary);  
+  border: 3px solid var(--primary);  
 }
 
 /******************/
