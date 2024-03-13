@@ -25,4 +25,5 @@ urlpatterns = [
     path('project/<int:project_id>/', project, name='project'),
     path('admin/', admin.site.urls),
     path('drag/', drag_drop),
+    path('projects/', projects),
 ]
