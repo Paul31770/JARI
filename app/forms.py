@@ -12,11 +12,24 @@ class ProjectForm(forms.ModelForm):
 
 
 class TaskForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+
+        # On récupère le project_id
+        project_id = kwargs.pop('project_id', None)
+        super(TaskForm, self).__init__(*args, **kwargs)
+
+        # On filtre les sous-tâches et les tâches requises pour qu'elles soient liées au même projet que la tâche courante
+        if project_id:
+            self.fields['subtasks'].queryset = Task.objects.filter(project_id=project_id)
+            self.fields['required_tasks'].queryset = Task.objects.filter(project_id=project_id)
+
     class Meta:
         model = Task
-        fields = ['title', 'description', 'start_date', 'priority', 'est_days']
+        fields = ['title', 'description', 'start_date', 'priority', 'est_days', 'subtasks', 'required_tasks']
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
-            # priority is a number field between 1 and 3
             'priority': forms.NumberInput(attrs={'type': 'number', 'min': 1, 'max': 3}),
+            'subtasks': forms.CheckboxSelectMultiple(),
+            'required_tasks': forms.CheckboxSelectMultiple(),
         }

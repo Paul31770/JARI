@@ -5,4 +5,13 @@
 <a href="{% url 'create_task' project.id %}">
   <button>Create Task</button>
 </a>
+{% for task in project.task_set.all %}
+  <h2>{{task.title}}</h2>
+  {% for subtask in task.subtasks.all %}
+    <p>{{ subtask.title }}</p>
+  {% endfor %}
+  {% for required_task in task.required_tasks.all %}
+    <p>{{ required_task.title }}</p>
+  {% endfor %}
+{% endfor %}
 {% endblock %}
