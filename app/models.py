@@ -3,6 +3,9 @@ from django.db import models
 class User(models.Model):
     username = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.username
+
 class Project(models.Model):
     title = models.CharField(max_length=100)
     start_date = models.DateField(null=True, blank=True)
@@ -15,6 +18,10 @@ class Project(models.Model):
         ('delivered', 'Delivered'),
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='paused')
+    advancement = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.title
 
 class Task(models.Model):
     title = models.CharField(max_length=100)
@@ -27,10 +34,14 @@ class Task(models.Model):
         ('paused', 'Paused'),
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='paused')
-    start_date = models.DateField(null=True, blank=True)
-    priority = models.IntegerField(null=True, blank=True)
-    advancement = models.IntegerField()
+    start_date = models.DateField(blank=True)
+    priority = models.IntegerField(blank=True)
+    est_days = models.IntegerField(blank=True)
+    advancement = models.IntegerField(default=0)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
 
 class Role(models.Model):
     name = models.CharField(max_length=100, primary_key=True)

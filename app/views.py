@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from app.models import *
 from django.http import HttpResponse
+from app.forms import ProjectForm, TaskForm
+from django.shortcuts import redirect
 
 def drag_drop(request):
     # Item.objects.create(name='CCS', column='column1')
@@ -12,7 +14,7 @@ def drag_drop(request):
     return render(request, 'drag.html',  context={'all_items': all_items, 'all_name': all_name})
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return HttpResponse("Home page")
 
 def project(request, project_id):
     try:
@@ -20,9 +22,32 @@ def project(request, project_id):
     except Project.DoesNotExist:
         return render(request, '404.html', {'message': 'Project not found'})
     
-    return render(request, 'project.html', {'project': project})
+    return render(request, 'projects/project.html', {'project': project})
 
 def projects(request):
     projects = Project.objects.all()
-    projects = projects[0], projects[0], projects[0], projects[0], projects[0], projects[0],
-    return render(request, 'projects.html', {'projects': projects})
+    return render(request, 'projects/projects.html', {'projects': projects})
+    
+def create_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(projects)
+    else:
+        form = ProjectForm()
+    return render(request, 'projects/createProject.html', {'form': form})
+
+def create_task(request, project_id):
+    all_tasks = Task.objects.all()
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        form.project = project_id
+        if form.is_valid():
+            form.save()
+            return redirect(project, project_id)
+    else:
+        form = TaskForm()
+    return render(request, 'createTask.html', {'form': form, 'all_tasks': all_tasks})
+
