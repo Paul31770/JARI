@@ -3,11 +3,11 @@
 /**********/
 
 :root{
-  --primary: rgb(131, 111, 187);
+  --primary: rgb(111, 187, 129);
   --secondary: #dedaea;
-  --accent: rgb(108, 91, 157);
+  --accent: rgb(111, 187, 129);
   --primary-text: rgb(0, 0, 0);
-  --primary-text-light: rgb(123, 116, 144);
+  --primary-text-light: rgb(111, 187, 129);
   --box-shadow: 0px 30px 40px -25px 
 }
 

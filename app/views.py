@@ -25,7 +25,7 @@ def drag_drop(request):
         elif all_name[i].status=="planned":
             planned.append(all_name[i])
             
-    return render(request, 'drag.html',  context={'progress': progress,'paused': paused,'completed': completed,'validated': validated,'planned': planned})
+    return ({'progress': progress,'paused': paused,'completed': completed,'validated': validated,'planned': planned})
 
 def update_task_status(request):
     if request.method == 'POST':
@@ -51,12 +51,23 @@ def index(request):
     return HttpResponse("Home page")
 
 def project(request, project_id):
+    context=drag_drop(request)
+    progress=context.get("progress",[])
+    paused=context.get("paused",[])
+    completed=context.get("completed",[])
+    validated=context.get("validated",[])
+    planned=context.get("planned",[])
+    print(progress)
+    print(paused)
+    print(completed)
+    print(validated)
+    print(planned)
     try:
         project = Project.objects.get(id=project_id)
     except Project.DoesNotExist:
         return render(request, '404.html', {'message': 'Project not found'})
     
-    return render(request, 'projects/project.html', {'project': project})
+    return render(request, 'projects/project.html', {'project': project, 'progress': progress, 'paused': paused, 'completed': completed, 'validated': validated, 'planned': planned})
 
 def projects(request):
     projects = Project.objects.all()

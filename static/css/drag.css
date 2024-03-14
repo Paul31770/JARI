@@ -1,0 +1,19 @@
+
+.drag_container {
+    display: flex;
+  }
+  
+  .drag_column {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    min-height: 200px;
+    width: 100px;
+  }
+  
+  .drag_column div {
+    margin: 5px;
+    padding: 10px;
+    background-color: #eee;
+    cursor: move;
+  }

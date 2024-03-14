@@ -1,17 +1,84 @@
 {% extends "base.html" %}
 {% block content %}
+{% csrf_token %}
 <h1>Project:  {{project.title}} </h1>
 <p> {{project.description}} </p>
 <a href="{% url 'create_task' project.id %}">
   <button>Create Task</button>
 </a>
-{% for task in project.task_set.all %}
-  <h2>{{task.title}}</h2>
-  {% for subtask in task.subtasks.all %}
-    <p>{{ subtask.title }}</p>
-  {% endfor %}
-  {% for required_task in task.required_tasks.all %}
-    <p>{{ required_task.title }}</p>
-  {% endfor %}
-{% endfor %}
+<div class="drag_container">
+  <div class="drag_column" id="in_progress" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <p>In Progress</p>
+      {% for progress in progress%}
+      <div id="{{progress.title}}" draggable="true" ondragstart="drag(event)">{{progress.title}}</div>
+      {% endfor %}
+  </div>
+  <div class="drag_column" id="paused" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <p>Paused</p>
+      {% for paused in paused%}
+      <div id="{{paused.title}}" draggable="true" ondragstart="drag(event)">{{paused.title}}</div>
+      {% endfor %}
+  </div>
+  <div class="drag_column" id="completed" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <p>Completed</p>
+      {% for completed in completed%}
+      <div id="{{completed.title}}" draggable="true" ondragstart="drag(event)">{{completed.title}}</div>
+      {% endfor %}
+  </div>
+  <div class="drag_column" id="validated" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <p>Validated</p>
+      {% for validated in validated%}
+      <div id="{{validated.title}}" draggable="true" ondragstart="drag(event)">{{validated.title}}</div>
+      {% endfor %}
+  </div>
+  <div class="drag_column" id="planed" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <p>Planed</p>
+      {% for planned in planned%}
+      <div id="{{planned.title}}" draggable="true" ondragstart="drag(event)">{{planned.title}}</div>
+      {% endfor %}
+  </div>
+</div>
+<script>
+  function allowDrop(event) {
+    console.log("JE SUIS DANS LE ALLOW")
+    event.preventDefault();
+  }
+  
+  function drag(event) {
+    console.log("JE SUIS DANS LE DRAG")
+    event.dataTransfer.setData("text", event.target.id);
+  }
+  
+  function drop(event) {
+    console.log("JE SUIS DANS LE DROP")
+    event.preventDefault();
+    var data = event.dataTransfer.getData("text");
+    var draggedElement = document.getElementById(data);
+    var column = event.target.closest('.drag_column');
+  
+    // Vérifie si l'élément est déposé dans une colonne
+    if (column) {
+        var div = draggedElement.innerText; 
+        var columnId = column.id;
+        $.ajax({
+            url: '/update_task_status/', 
+            type: 'POST',
+            data: {
+                'task_id': div,
+                'new_status': columnId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+
+        column.appendChild(draggedElement);
+    }
+  }
+</script>
+
 {% endblock %}
