@@ -1,8 +1,9 @@
 .projects_list {
-  display: flex;
+  width: 100%;
+  display: grid;
+  justify-content: center;
   gap: 10px;
-  flex-direction: row;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(375px, 10px));;
 }
 
 .project_card {
@@ -11,7 +12,7 @@
   padding: 15px;
   height: 200px;
   width: 375px;
-  border-radius: 10px;
+  border-radius: 15px;
   box-shadow: var(--box-shadow) var(--secondary);
   background-color: white;
   border: 2px solid var(--secondary);
@@ -48,4 +49,9 @@
 
 .project_card:hover .add_project_card_icon {
   color: var(--primary);
+}
+
+.project_card_btns {
+  display: flex;
+  gap: 5px;
 }

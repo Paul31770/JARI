@@ -13,39 +13,9 @@ def drag_drop(request):
     validated=[]
     planned=[]
     all_name= Task.objects.all()
-    for i in range(len(all_name)):
-        if all_name[i].status=="in_progress":
-            progress.append(all_name[i])
-        elif all_name[i].status=="paused":
-            paused.append(all_name[i])
-        elif all_name[i].status=="completed":
-            completed.append(all_name[i])
-        elif all_name[i].status=="validated":
-            validated.append(all_name[i])
-        elif all_name[i].status=="planned":
-            planned.append(all_name[i])
-            
-    return ({'progress': progress,'paused': paused,'completed': completed,'validated': validated,'planned': planned})
-
-def update_task_status(request):
-    if request.method == 'POST':
-        task_id = request.POST.get('task_id')
-        new_status = request.POST.get('new_status')
-        try:
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM app_task WHERE title= %s", [task_id])
-                rows = cursor.fetchall()
-                for row in rows:
-                    task_idd=row[0]
-            task = Task.objects.get(id=task_idd)
-            task.status = new_status
-            task.save()
-            return JsonResponse({'success': True})
-        except Task.DoesNotExist:
-            return JsonResponse({'success': False, 'error': 'Task does not exist'})
-    return JsonResponse({'success': False, 'error': 'Invalid request method'})
-
-
+    print("all items ", all_items)
+    print("all name ",all_name)
+    return render(request, 'drag.html',  context={'all_items': all_items, 'all_name': all_name})
 
 def index(request):
     return HttpResponse("Home page")
@@ -83,6 +53,21 @@ def create_project(request):
         form = ProjectForm()
     return render(request, 'projects/createProject.html', {'form': form})
 
+def edit_project(request, project_id):
+    try:
+        project = Project.objects.get(id=project_id)
+    except Project.DoesNotExist:
+        return render(request, '404.html', {'message': 'Project not found'})
+    
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect(projects)
+    else:
+        form = ProjectForm(instance=project)
+    return render(request, 'projects/createProject.html', {'form': form, 'project': project})
+
 def create_task(request, project_id):
     if request.method == 'POST':
         form = TaskForm(request.POST, project_id=project_id)
@@ -93,4 +78,19 @@ def create_task(request, project_id):
     else:
         form = TaskForm(project_id=project_id)
     return render(request, 'createTask.html', {'form': form})
+
+def edit_task(request, task_id):
+    try:
+        task = Task.objects.get(id=task_id)
+    except Task.DoesNotExist:
+        return render(request, '404.html', {'message': 'Task not found'})
+    
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task, project_id=task.project_id)
+        if form.is_valid():
+            form.save()
+            return redirect(project, task.project_id)
+    else:
+        form = TaskForm(instance=task, project_id=task.project_id)
+    return render(request, 'createTask.html', {'form': form, 'task': task})
 

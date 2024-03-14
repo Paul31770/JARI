@@ -26,10 +26,12 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['title', 'description', 'start_date', 'priority', 'est_days', 'subtasks', 'required_tasks']
+        fields = ['title', 'description', 'start_date', 'priority', 'est_days', 'manager', 'assigned_users', 'subtasks', 'required_tasks']
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'priority': forms.NumberInput(attrs={'type': 'number', 'min': 1, 'max': 3}),
             'subtasks': forms.CheckboxSelectMultiple(),
             'required_tasks': forms.CheckboxSelectMultiple(),
+            'manager': forms.RadioSelect(),
+            'assigned_users': forms.CheckboxSelectMultiple(),
         }
