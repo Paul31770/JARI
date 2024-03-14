@@ -28,4 +28,5 @@ urlpatterns = [
     path('projects/', projects, name='projects'),
     path('create_project/', create_project, name='create_project'),
     path('create_task/<int:project_id>', create_task, name='create_task'),
+    path('update_task_status/', update_task_status, name='update_task_status'),
 ]
