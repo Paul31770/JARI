@@ -13,9 +13,38 @@ def drag_drop(request):
     validated=[]
     planned=[]
     all_name= Task.objects.all()
-    print("all items ", all_items)
-    print("all name ",all_name)
-    return render(request, 'drag.html',  context={'all_items': all_items, 'all_name': all_name})
+    for i in range(len(all_name)):
+        if all_name[i].status=="in_progress":
+            progress.append(all_name[i])
+        elif all_name[i].status=="paused":
+            paused.append(all_name[i])
+        elif all_name[i].status=="completed":
+            completed.append(all_name[i])
+        elif all_name[i].status=="validated":
+            validated.append(all_name[i])
+        elif all_name[i].status=="planned":
+            planned.append(all_name[i])
+
+    return ({'progress': progress,'paused': paused,'completed': completed,'validated': validated,'planned': planned})
+
+
+def update_task_status(request):
+    if request.method == 'POST':
+        task_id = request.POST.get('task_id')
+        new_status = request.POST.get('new_status')
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM app_task WHERE title= %s", [task_id])
+                rows = cursor.fetchall()
+                for row in rows:
+                    task_idd=row[0]
+            task = Task.objects.get(id=task_idd)
+            task.status = new_status
+            task.save()
+            return JsonResponse({'success': True})
+        except Task.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Task does not exist'})
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
 def index(request):
     return HttpResponse("Home page")
