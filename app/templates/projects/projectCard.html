@@ -21,9 +21,14 @@
     {% endif %}
       <p class="light_text">{{ project.advancement }}%</p>
     </div>
-    <a href="{% url 'project' project.id %}">
-      <button class="full_width">View Project</button>
-    </a>
+    <div class="project_card_btns">
+      <a href="{% url 'project' project.id %}" style="flex: 1">
+        <button class="full_width">View Project</button>
+      </a>
+      <a href="{% url 'edit_project' project.id %}">
+        <button>Edit</button>
+      </a>
+    </div>
   </div>
 </div>
 {% endif %}

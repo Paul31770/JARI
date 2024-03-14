@@ -27,5 +27,6 @@ urlpatterns = [
     path('drag/', drag_drop),
     path('projects/', projects, name='projects'),
     path('create_project/', create_project, name='create_project'),
+    path('edit_project/<int:project_id>', edit_project, name='edit_project'),
     path('create_task/<int:project_id>', create_task, name='create_task'),
 ]

@@ -39,6 +39,8 @@ class Task(models.Model):
     est_days = models.IntegerField()
     advancement = models.IntegerField(default=0)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name='managed_tasks')
+    assigned_users = models.ManyToManyField(User, blank=True, related_name='asigned_tasks', verbose_name='Asigned users')
     subtasks = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='parent_tasks', verbose_name='Subtasks')
     required_tasks = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='dependent_tasks', verbose_name='Required tasks')
 
@@ -62,7 +64,3 @@ class UserRole(models.Model):
 class RolePermission(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
     permission = models.ForeignKey(Permission, on_delete=models.CASCADE)
-
-class Item(models.Model):
-    name = models.CharField(max_length=255)
-    column = models.CharField(max_length=50)
