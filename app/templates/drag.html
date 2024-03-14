@@ -75,8 +75,8 @@
         </div>
         <div class="column" id="planed" ondrop="drop(event)" ondragover="allowDrop(event)">
             <p>Planed</p>
-            {% for planed in planed%}
-            <div id="{{planed.title}}" draggable="true" ondragstart="drag(event)">{{planed.title}}</div>
+            {% for planned in planned%}
+            <div id="{{planned.title}}" draggable="true" ondragstart="drag(event)">{{planned.title}}</div>
             {% endfor %}
         </div>
     </div>
@@ -109,7 +109,12 @@
       
         // Vérifie si l'élément est déposé dans une colonne
         if (column) {
-          column.appendChild(draggedElement);
+            var div = draggedElement.innerText; 
+            var columnId = column.id;
+            console.log("Titre de la div déplacée : ", div);
+            console.log("ID de la colonne : ", columnId);
+
+            column.appendChild(draggedElement);
         }
       }
       
