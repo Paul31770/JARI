@@ -23,6 +23,3 @@ Ajouter des données de test
 python3 manage.py insert_test_data
 ```
 
-
-
-Salut le peuplpe
