@@ -24,4 +24,7 @@ urlpatterns = [
     path('', index),
     path('project/<int:project_id>/', project, name='project'),
     path('conges/', views.liste_conges, name='liste_conges'),
+    path('ajouter_conges/', views.ajout_conges, name='ajouter_conges'),
+
+    path('ajouter/', ajouter_donnees, name='ajouter_donnees'),
 ]

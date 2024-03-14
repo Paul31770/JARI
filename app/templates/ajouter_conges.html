@@ -1,11 +1,32 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des congés</title>
+    <title>Ajouter des congés</title>
 </head>
 <body>
+    <h1>Ajouter des congés</h1>
+
+    <form method="post" action="{% url 'ajouter_conges' %}">
+        {% csrf_token %}
+    
+        <label for="user_id">Sélectionner l'utilisateur:</label>
+        <select id="user_id" name="user_id">
+            {% for conge in conges %}
+                <option value="{{ conge.user_id }}">{{ conge.user_id }}</option>
+            {% endfor %}
+        </select><br>
+    
+        <label for="date_debut">Date de début:</label>        
+        <input type="date" id="date_debut" name="date_debut"><br>
+    
+        <label for="date_fin">Date de fin:</label>
+        <input type="date" id="date_fin" name="date_fin"><br>
+    
+        <input type="submit" value="Enregistrer">
+    </form>
+    
     <style>
         table {
             border-collapse: separate;
@@ -38,5 +59,6 @@
             {% endfor %}
         </tbody>
     </table>    
+  
 </body>
 </html>
