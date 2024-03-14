@@ -116,14 +116,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Item',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('column', models.CharField(max_length=50)),
-            ],
-        ),
-        migrations.CreateModel(
             name='Permission',
             fields=[
                 ('name', models.CharField(max_length=100, primary_key=True, serialize=False)),

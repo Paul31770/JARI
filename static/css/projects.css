@@ -1,8 +1,9 @@
 .projects_list {
-  display: flex;
+  width: 100%;
+  display: grid;
+  justify-content: center;
   gap: 10px;
-  flex-direction: row;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(375px, 10px));;
 }
 
 .project_card {
@@ -48,4 +49,9 @@
 
 .project_card:hover .add_project_card_icon {
   color: var(--primary);
+}
+
+.project_card_btns {
+  display: flex;
+  gap: 5px;
 }
