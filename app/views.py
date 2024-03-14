@@ -5,7 +5,11 @@ from app.forms import ProjectForm, TaskForm
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.db import connection
+from app.utils import update_project_advancement, update_project_status
 
+def index(request):
+    return HttpResponse("Home page")
+    
 def drag_drop(request):
     progress=[]
     paused=[]
@@ -41,13 +45,12 @@ def update_task_status(request):
             task = Task.objects.get(id=task_idd)
             task.status = new_status
             task.save()
+            update_project_advancement(task.project_id)
+            update_project_status(task.project_id)
             return JsonResponse({'success': True})
         except Task.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Task does not exist'})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
-
-def index(request):
-    return HttpResponse("Home page")
 
 def project(request, project_id):
     context=drag_drop(request)
@@ -56,11 +59,6 @@ def project(request, project_id):
     completed=context.get("completed",[])
     validated=context.get("validated",[])
     planned=context.get("planned",[])
-    print(progress)
-    print(paused)
-    print(completed)
-    print(validated)
-    print(planned)
     try:
         project = Project.objects.get(id=project_id)
     except Project.DoesNotExist:
@@ -76,6 +74,8 @@ def create_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
+            if form.instance.start_date != None:
+                form.instance.status = 'planned'
             form.save()
             return redirect(projects)
     else:
