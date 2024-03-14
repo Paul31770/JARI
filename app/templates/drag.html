@@ -39,15 +39,6 @@
 </head>
 <body>
 
-
-    <!-- {% for task in all_name %}
-    <div >
-        <p>{{ task.title}}</p>
-        <p>{{ task.status}}</p>
-        <p>{{ task.get_status_display }}</p>
-    </div>
-    {% endfor %} -->
-
     <div class="container">
         <div class="column" id="in_progress" ondrop="drop(event)" ondragover="allowDrop(event)">
             <p>In Progress</p>
@@ -80,15 +71,6 @@
             {% endfor %}
         </div>
     </div>
-<!-- <div class="container">
-    {% for task in all_name %}
-    <p>{{ task.get_status_display }}</p>
-    <div class="column" id="column1" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <p>{{task.get_status_display}}</p>
-        <p>{{task.status}}</p>
-    </div>
-    {% endfor %}
-</div> -->
 
 
 <script>
@@ -113,6 +95,21 @@
             var columnId = column.id;
             console.log("Titre de la div déplacée : ", div);
             console.log("ID de la colonne : ", columnId);
+
+            $.ajax({
+                url: '/update_task_status/', 
+                type: 'POST',
+                data: {
+                    'task_id': taskId,
+                    'new_status': columnId 
+                },
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
 
             column.appendChild(draggedElement);
         }

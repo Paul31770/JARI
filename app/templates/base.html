@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Votre Titre par Défaut{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/projects.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tasks.css' %}">
 </head>
 <body>
-<nav class="flex-center-v">
+<nav class="f ai">
     {% include "navbar.html" %}
 </nav>
 
@@ -17,11 +20,11 @@
     {% endblock %}
 </main>
 
-<footer class="flex-center-v">
+<footer class="f ai">
     <p>&copy; 2024 JARI</p>
 </footer>
 
 <!-- JS -->
-<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/base.js' %}"></script>
 </body>
 </html>

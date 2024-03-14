@@ -3,6 +3,9 @@ from django.db import models
 class User(models.Model):
     username = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.username
+
 class Project(models.Model):
     title = models.CharField(max_length=100)
     start_date = models.DateField(null=True, blank=True)
@@ -15,10 +18,14 @@ class Project(models.Model):
         ('delivered', 'Delivered'),
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='paused')
+    advancement = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.title
 
 class Task(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
+    description = models.TextField()
     STATUS_CHOICES = (
         ('planned', 'Planned'),
         ('in_progress', 'In Progress'),
@@ -28,9 +35,15 @@ class Task(models.Model):
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='paused')
     start_date = models.DateField(null=True, blank=True)
-    priority = models.IntegerField(null=True, blank=True)
-    advancement = models.IntegerField()
+    priority = models.IntegerField()
+    est_days = models.IntegerField()
+    advancement = models.IntegerField(default=0)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    subtasks = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='parent_tasks', verbose_name='Subtasks')
+    required_tasks = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='dependent_tasks', verbose_name='Required tasks')
+
+    def __str__(self):
+        return self.title
 
 class Role(models.Model):
     name = models.CharField(max_length=100, primary_key=True)
@@ -50,6 +63,9 @@ class RolePermission(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
     permission = models.ForeignKey(Permission, on_delete=models.CASCADE)
 
+class Item(models.Model):
+    name = models.CharField(max_length=255)
+    column = models.CharField(max_length=50)
 class RequiredTask(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='required_tasks')
     required_task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='required_by_tasks')
