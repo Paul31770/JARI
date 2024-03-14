@@ -10,7 +10,7 @@ python3 manage.py runserver
 
 Faire les migrations
 ```bash
-python3 manage.py makemigrations app
+python3 manage.py makemigrations
 ```
 
 Exectuer les migrations

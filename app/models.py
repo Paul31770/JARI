@@ -44,6 +44,8 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+    
+    pass
 
 class Role(models.Model):
     name = models.CharField(max_length=100, primary_key=True)
@@ -70,6 +72,7 @@ class RequiredTask(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='required_tasks')
     required_task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='required_by_tasks')
 
+
 class TaskSubtask(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='subtasks')
-    subtask = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='parent_task')
+    subtask = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='parent_subtasks')
