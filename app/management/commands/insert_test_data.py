@@ -56,6 +56,9 @@ class Command(BaseCommand):
 
       task5 = Task(title="Deployer l'API dans le cloud azure", description="Il est demandé de paramétrer le cloud azure pour y déployer l'application", status="planned", start_date="2024-03-19", priority=2, advancement=0, project=project, est_days=4, manager=user)
       task5.save()
+      
+      task6 = Task(title="task six", description="test", status="planned", start_date="2024-03-12", priority=1, advancement=1, project=project, est_days=1)
+      task6.save()
 
       # Creation d'un role pour tester
       role = Role(name="testRole")
