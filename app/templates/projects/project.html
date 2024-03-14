@@ -8,33 +8,33 @@
 </a>
 <div class="drag_container">
   <div class="drag_column" id="in_progress" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <p>In Progress</p>
+      <p class="drag_p">In Progress</p>
       {% for progress in progress%}
-      <div id="{{progress.title}}" draggable="true" ondragstart="drag(event)">{{progress.title}}</div>
+      <div class="drag_task" id="{{progress.title}}" draggable="true" ondragstart="drag(event)">{{progress.title}}</div>
       {% endfor %}
   </div>
   <div class="drag_column" id="paused" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <p>Paused</p>
+      <p class="drag_p">Paused</p>
       {% for paused in paused%}
-      <div id="{{paused.title}}" draggable="true" ondragstart="drag(event)">{{paused.title}}</div>
+      <div class="drag_task" id="{{paused.title}}" draggable="true" ondragstart="drag(event)">{{paused.title}}</div>
       {% endfor %}
   </div>
   <div class="drag_column" id="completed" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <p>Completed</p>
+      <p class="drag_p">Completed</p>
       {% for completed in completed%}
-      <div id="{{completed.title}}" draggable="true" ondragstart="drag(event)">{{completed.title}}</div>
+      <div class="drag_task" id="{{completed.title}}" draggable="true" ondragstart="drag(event)">{{completed.title}}</div>
       {% endfor %}
   </div>
   <div class="drag_column" id="validated" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <p>Validated</p>
+      <p class="drag_p">Validated</p>
       {% for validated in validated%}
-      <div id="{{validated.title}}" draggable="true" ondragstart="drag(event)">{{validated.title}}</div>
+      <div class="drag_task" id="{{validated.title}}" draggable="true" ondragstart="drag(event)">{{validated.title}}</div>
       {% endfor %}
   </div>
   <div class="drag_column" id="planed" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <p>Planed</p>
+      <p class="drag_p">Planed</p>
       {% for planned in planned%}
-      <div id="{{planned.title}}" draggable="true" ondragstart="drag(event)">{{planned.title}}</div>
+      <div class="drag_task" id="{{planned.title}}" draggable="true" ondragstart="drag(event)">{{planned.title}}</div>
       {% endfor %}
   </div>
 </div>
