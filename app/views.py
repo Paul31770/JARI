@@ -12,20 +12,21 @@ def drag_drop(request):
     completed=[]
     validated=[]
     planned=[]
-    all_name= Task.objects.all()
-    for i in range(len(all_name)):
-        if all_name[i].status=="in_progress":
-            progress.append(all_name[i])
-        elif all_name[i].status=="paused":
-            paused.append(all_name[i])
-        elif all_name[i].status=="completed":
-            completed.append(all_name[i])
-        elif all_name[i].status=="validated":
-            validated.append(all_name[i])
-        elif all_name[i].status=="planned":
-            planned.append(all_name[i])
-
-    return ({'progress': progress,'paused': paused,'completed': completed,'validated': validated,'planned': planned})
+    all_status = {'progress': [], "paused": [], "completed": [], "validated": [], "planned": []}
+    all_name = Task.objects.all()
+    for task in all_name:
+        if task.status == "in_progress":
+            all_status['progress'].append(task)
+        elif task.status == "paused":
+            all_status['paused'].append(task)
+        elif task.status == "completed":
+            all_status['completed'].append(task)
+        elif task.status == "validated":
+            all_status['validated'].append(task)
+        elif task.status == "planned":
+            all_status['planned'].append(task)
+            
+    return ({'all_status': all_status, 'progress': progress,'paused': paused,'completed': completed,'validated': validated,'planned': planned})
 
 
 def update_task_status(request):
@@ -51,22 +52,18 @@ def index(request):
 
 def project(request, project_id):
     context=drag_drop(request)
+    all_status=context.get("all_status",[])
     progress=context.get("progress",[])
     paused=context.get("paused",[])
     completed=context.get("completed",[])
     validated=context.get("validated",[])
     planned=context.get("planned",[])
-    print(progress)
-    print(paused)
-    print(completed)
-    print(validated)
-    print(planned)
     try:
         project = Project.objects.get(id=project_id)
     except Project.DoesNotExist:
         return render(request, '404.html', {'message': 'Project not found'})
     
-    return render(request, 'projects/project.html', {'project': project, 'progress': progress, 'paused': paused, 'completed': completed, 'validated': validated, 'planned': planned})
+    return render(request, 'projects/project.html', {'all_status':all_status, 'project': project, 'progress': progress, 'paused': paused, 'completed': completed, 'validated': validated, 'planned': planned})
 
 def projects(request):
     projects = Project.objects.all()
