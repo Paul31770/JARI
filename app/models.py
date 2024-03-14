@@ -62,14 +62,3 @@ class UserRole(models.Model):
 class RolePermission(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
     permission = models.ForeignKey(Permission, on_delete=models.CASCADE)
-
-class Item(models.Model):
-    name = models.CharField(max_length=255)
-    column = models.CharField(max_length=50)
-class RequiredTask(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='required_tasks')
-    required_task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='required_by_tasks')
-
-class TaskSubtask(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='subtasks')
-    subtask = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='parent_task')
