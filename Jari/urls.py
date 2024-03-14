@@ -23,10 +23,10 @@ urlpatterns = [
     path('', index),
     path('project/<int:project_id>/', project, name='project'),
     path('admin/', admin.site.urls),
-    path('drag/', drag_drop),
     path('projects/', projects, name='projects'),
     path('create_project/', create_project, name='create_project'),
     path('edit_project/<int:project_id>', edit_project, name='edit_project'),
     path('create_task/<int:project_id>', create_task, name='create_task'),
     path('edit_task/<int:task_id>', edit_task, name='edit_task'),
+    path('update_task_status/', update_task_status, name='update_task_status'),
 ]
