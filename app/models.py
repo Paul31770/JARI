@@ -14,7 +14,7 @@ class Project(models.Model):
     STATUS_CHOICES = (
         ('paused', 'Paused'),
         ('planned', 'Planned'),
-        ('in_progress', 'In Progress'),
+        ('progress', 'In Progress'),
         ('delivered', 'Delivered'),
     )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='paused')
@@ -28,7 +28,7 @@ class Task(models.Model):
     description = models.TextField()
     STATUS_CHOICES = (
         ('planned', 'Planned'),
-        ('in_progress', 'In Progress'),
+        ('progress', 'In Progress'),
         ('completed', 'Completed'),
         ('validated', 'Validated'),
         ('paused', 'Paused'),

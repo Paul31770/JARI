@@ -77,7 +77,7 @@ nav{
 }
 
 main {
-  padding: 20px 40px;
+  padding: 20px 40px 60px 40px;
   min-height: calc(100vh - (60px + 45px)); /* 60px for nav and 45px for footer and 80px for padding */
   background-color: var(--bgColor);
   display: flex;
@@ -183,6 +183,7 @@ form {
   border: 1px solid var(--primary);
   font-size: 1.4rem;
   height: 21px;
+  white-space: nowrap;
 }
 
 .limit_lines_2{

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<h1>Create Project</h1>
+<h1>{% if project %}Edit{% else %}Create{% endif %} project</h1>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
