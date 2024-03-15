@@ -3,12 +3,13 @@
 /**********/
 
 :root{
-  --primary: rgb(131, 111, 187);
-  --secondary: #dedaea;
-  --accent: rgb(108, 91, 157);
+  --primary: rgb(111, 187, 129);
+  --accent: rgb(92, 156, 107);
+  --primary-text-light: rgb(151, 151, 151);
   --primary-text: rgb(0, 0, 0);
-  --primary-text-light: rgb(123, 116, 144);
-  --box-shadow: 0px 30px 40px -25px 
+  --box-shadow: 0px 30px 40px -25px;
+  --secondary: #d0e7cf;
+  --bgColor: #f5f5f5;
 }
 
 * {
@@ -34,7 +35,7 @@ h1, h2, h3, h4, p{
 }
 
 h1{
-  font-size: 3rem;
+  font-size: 4rem;
 }
 
 h2 {
@@ -45,7 +46,11 @@ h3 {
   font-size: 2.2rem;
 }
 
-p {
+h4 {
+  font-size: 1.8rem;
+}
+
+p, label, a {
   font-size: 1.6rem;
 }
 
@@ -64,23 +69,32 @@ a {
 
 nav{
   height: 59px;
-  border-bottom: 1px solid var(--primary)
+  border-bottom: 1px solid var(--primary);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 main {
-  padding: 40px;
+  padding: 20px 40px 60px 40px;
   min-height: calc(100vh - (60px + 45px)); /* 60px for nav and 45px for footer and 80px for padding */
-  background-color: #f5f5f5;
+  background-color: var(--bgColor);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 }
 
 footer {
   height: 44px;
-  border-top: 1px solid var(--primary)
+  border-top: 1px solid var(--primary);
+  padding: 0 20px;
 }
 
 button {
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 7px;
   border: none;
   cursor: pointer;
   background-color: var(--primary);
@@ -92,11 +106,30 @@ button:hover {
   background-color: var(--accent);
 }
 
+.btn-secondary{
+  background-color: var(--bgColor);
+  color: var(--primary-text);
+  border: 2px solid var(--primary);
+}
+
+.btn-secondary:hover{
+  color: white;
+}
+
 input, select, textarea {
   padding: 7px 15px;
   border-radius: 5px;
-  border: 1px solid var(--primary);
+  border: 2px solid var(--primary);
   width: 100%;
+}
+
+textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  width: auto
 }
 
 form {
@@ -108,7 +141,7 @@ form {
   padding: 20px;
   border-radius: 10px;
   box-shadow: var(--box-shadow) var(--primary);
-  border: 2px solid var(--primary);  
+  border: 3px solid var(--primary);  
 }
 
 /******************/

@@ -1,0 +1,10 @@
+
+#id_subtasks, #id_required_tasks, #id_manager, #id_assigned_users{
+  max-height: 130px;
+  min-height: 33px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 2px solid var(--primary);
+  border-radius: 5px;
+  width: 100%;
+}
