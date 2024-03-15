@@ -39,8 +39,6 @@ def update_task_status(request):
                 rows = cursor.fetchall()
                 for row in rows:
                     task_idd=row[0]
-            print("STATUS ", new_status)
-            print("TASKIDD ", task_idd)
             task = Task.objects.get(id=task_idd)
             task.status = new_status
             task.save()
