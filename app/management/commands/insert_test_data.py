@@ -42,13 +42,13 @@ class Command(BaseCommand):
       project4.save()
 
       # Creation d'une tache pour tester
-      task1 = Task(title="Création de la page de login", description="Créer la page de login ainsi que tous ses composants UI", status="in_progress", start_date="2024-03-12", priority=2, advancement=34, project=project, est_days=1, manager=user)
+      task1 = Task(title="Création de la page de login", description="Créer la page de login ainsi que tous ses composants UI", status="progress", start_date="2024-03-12", priority=2, advancement=34, project=project, est_days=1, manager=user)
       task1.save()
 
       task2 = Task(title="Création de la base de données", description="Créer la base de donnée ainsi que toutes ses tables, relations et y ajouter les données de test", status="paused", start_date="2024-03-12", priority=3, advancement=13, project=project, est_days=2,manager=user)
       task2.save()
 
-      task3 = Task(title="Réaliser l'interface utilisateur", description="Réalisation du fronted de l'app", status="in_progress", start_date="2024-03-12", priority=2, advancement=78, project=project, est_days=5, manager=user)
+      task3 = Task(title="Réaliser l'interface utilisateur", description="Réalisation du fronted de l'app", status="progress", start_date="2024-03-12", priority=2, advancement=78, project=project, est_days=5, manager=user)
       task3.save()
 
       task4 = Task(title="Faire le diagramme de la BDD", description="Afin de pouvoir créer notre base de donnée il est nécéssaire de réaliser en amont un diagramme", status="validated", start_date="2024-03-12", priority=2, advancement=100, project=project, est_days=2, manager=user)

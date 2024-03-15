@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=100)),
                 ('start_date', models.DateField(blank=True, null=True)),
                 ('delivery_date', models.DateField(blank=True, null=True)),
-                ('status', models.CharField(choices=[('paused', 'Paused'), ('planned', 'Planned'), ('in_progress', 'In Progress'), ('delivered', 'Delivered')], default='paused', max_length=25)),
+                ('status', models.CharField(choices=[('paused', 'Paused'), ('planned', 'Planned'), ('progress', 'In Progress'), ('delivered', 'Delivered')], default='paused', max_length=25)),
             ],
         ),
         migrations.CreateModel(
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=100)),
                 ('description', models.TextField(blank=True)),
-                ('status', models.CharField(choices=[('planned', 'Planned'), ('in_progress', 'In Progress'), ('completed', 'Completed'), ('validated', 'Validated'), ('paused', 'Paused')], default='paused', max_length=20)),
+                ('status', models.CharField(choices=[('planned', 'Planned'), ('progress', 'In Progress'), ('completed', 'Completed'), ('validated', 'Validated'), ('paused', 'Paused')], default='paused', max_length=20)),
                 ('start_date', models.DateField(blank=True, null=True)),
                 ('priority', models.IntegerField(blank=True, null=True)),
                 ('advancement', models.IntegerField()),

@@ -15,7 +15,7 @@ def drag_drop(request):
     all_status = {'progress': [], "paused": [], "completed": [], "validated": [], "planned": []}
     all_name = Task.objects.all()
     for task in all_name:
-        if task.status == "in_progress":
+        if task.status == "progress":
             all_status['progress'].append(task)
         elif task.status == "paused":
             all_status['paused'].append(task)
