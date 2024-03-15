@@ -1,64 +1,31 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter des congés</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tasks.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ajout_conges.css' %}">
+    
+    <title>{% block title %}Congés{% endblock %}</title>
+
+    <nav class="f ai">
+        {% include "navbar.html" %}
+    </nav>
+
 </head>
 <body>
-    <h1>Ajouter des congés</h1>
+    <div class="centrer-form">
+        <h1>Ajouter des congés</h1>
 
-    <form method="post" action="{% url 'ajouter_conges' %}">
-        {% csrf_token %}
-    
-        <label for="user_id">Sélectionner l'utilisateur:</label>
-        <select id="user_id" name="user_id">
-            {% for conge in conges %}
-                <option value="{{ conge.user_id }}">{{ conge.user_id }}</option>
-            {% endfor %}
-        </select><br>
-    
-        <label for="date_debut">Date de début:</label>        
-        <input type="date" id="date_debut" name="date_debut"><br>
-    
-        <label for="date_fin">Date de fin:</label>
-        <input type="date" id="date_fin" name="date_fin"><br>
-    
-        <input type="submit" value="Enregistrer">
-    </form>
-    
-    <style>
-        table {
-            border-collapse: separate;
-            border-spacing: 10px;
-        }
-    
-        th, td {
-            padding: 10px;
-            border: 1px solid black;
-        }
-    </style>
-
-    <h1>Liste des congés</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-                <th>Utilisateur</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for conge in conges %}
-            <tr>
-                <td>{% if conge.date_debut %}{{ conge.date_debut|date:'d/m/Y' }}{% else %}N/A{% endif %}</td>
-                <td>{% if conge.date_fin %}{{ conge.date_fin|date:'d/m/Y' }}{% else %}N/A{% endif %}</td>
-                <td>{{ conge.user_id }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>    
-  
+        <form method="post" class="centrer-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Ajouter Congés</button>
+        </form>
+        <a href="{% url 'liste_conges' %}" class="button">Liste des congés</a>
+    </div>
 </body>
 </html>

@@ -23,8 +23,12 @@ from app import views
 urlpatterns = [
     path('', index),
     path('project/<int:project_id>/', project, name='project'),
+    path('admin/', admin.site.urls),
+    path('drag/', drag_drop),
+    path('projects/', projects, name='projects'),
+    path('create_project/', create_project, name='create_project'),
+    path('edit_project/<int:project_id>', edit_project, name='edit_project'),
+    path('create_task/<int:project_id>', create_task, name='create_task'),
     path('conges/', views.liste_conges, name='liste_conges'),
     path('ajouter_conges/', views.ajout_conges, name='ajouter_conges'),
-
-    path('ajouter/', ajouter_donnees, name='ajouter_donnees'),
 ]

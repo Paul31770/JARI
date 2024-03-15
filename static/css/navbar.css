@@ -1,0 +1,16 @@
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 3vw;
+}
+
+.nav-sides {
+  width: 150px;
+}
+
+.nav-right{
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
