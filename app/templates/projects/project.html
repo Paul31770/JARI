@@ -1,25 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
 {% csrf_token %}
-<h1>Project:  {{project.title}} </h1>
+<h1>Project: {{project.title}} </h1>
 <p> {{project.description}} </p>
 <a href="{% url 'create_task' project.id %}">
   <button>Create Task</button>
 </a>
 <div class="drag_container">
   {% for status, tasks in all_status.items %}
-      <div class="drag_column" id="{{status}}" ondrop="drop(event)" ondragover="allowDrop(event)">
-          <p class="drag_p">{{status|capfirst}}</p>
-          {% for task in tasks %}
-            <div class="drag_task" id="{{task.title}}" draggable="true" ondragstart="drag(event)">
-            <p class="drag_para">{{task.title}}</p>
-            <p class="drag_para" id="drag_manager" >Manager : {{task.manager}}</p>
-            <p class="drag_para" id="drag_manager" >Advancement : {{task.advancement}} %</p>
-            
-            </div>
-          {% endfor %}
-      </div>
-      
+  <div class="drag_column" id="{{status}}" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <p class="drag_p"><strong>{{status|capfirst}}</strong></p>
+
+    {% for task in tasks %}
+    <div class="drag_task" id="{{task.title}}" draggable="true" ondragstart="drag(event)">
+      <p class="drag_para"><strong>{{task.title}}</strong></p>
+      <p class="drag_line"></p>
+      <p class="drag_para" id="drag_manager"><strong>Manager :</strong> {{task.manager}}</p>
+      <p class="drag_para" id="drag_manager"><strong>Advancement :</strong> {{task.advancement}} %</p>
+
+    </div>
+    {% endfor %}
+  </div>
+
   {% endfor %}
 </div>
 
@@ -27,40 +29,40 @@
   function allowDrop(event) {
     event.preventDefault();
   }
-  
+
   function drag(event) {
     event.dataTransfer.setData("text", event.target.id);
   }
-  
+
   function drop(event) {
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
     var draggedElement = document.getElementById(data);
     var column = event.target.closest('.drag_column');
-  
+
     // Vérifie si l'élément est déposé dans une colonne
     if (column) {
-        var div = draggedElement.innerText; 
-        var columnId = column.id;
-        var manager= div.indexOf("Manager")
-        var result= div.substring(0, manager).trim()
-        $.ajax({
-            url: '/update_task_status/', 
-            type: 'POST',
-            data: {
-                'task_id': result,
-                'new_status': columnId,
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(error) {
-                console.error(error);
-            }
-        });
+      var div = draggedElement.innerText;
+      var columnId = column.id;
+      var manager = div.indexOf("Manager")
+      var result = div.substring(0, manager).trim()
+      $.ajax({
+        url: '/update_task_status/',
+        type: 'POST',
+        data: {
+          'task_id': result,
+          'new_status': columnId,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (response) {
+          console.log(response);
+        },
+        error: function (error) {
+          console.error(error);
+        }
+      });
 
-        column.appendChild(draggedElement);
+      column.appendChild(draggedElement);
     }
   }
 </script>

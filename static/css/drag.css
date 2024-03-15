@@ -1,39 +1,45 @@
-.drag_para{
+.drag_para {
     font-weight: normal;
     font-size: 11px;
 }
+
 .drag_container {
     display: flex;
     width: 100%;
-  }
-  
+}
+
 .drag_column {
-border: 1px solid var(--primary);
-box-shadow: 0px 10px 30px -25px var(--primary);
-border-radius: 10px;
-padding: 5px;
-margin: 10px;
-min-height: 350px;
-width: 25%;
+    border: 1px solid var(--primary);
+    box-shadow: 0px 10px 30px -25px var(--primary);
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px;
+    min-height: 350px;
+    width: 25%;
 }
 
 
-#drag_manager{
+#drag_manager {
     padding-left: 5px;
 }
+
 .drag_column div {
-margin: 5px;
-padding: 10px;
-cursor: move;
+    margin: 5px;
+    padding: 10px;
+    cursor: move;
 }
 
-.drag_task{
+.drag_task {
     border: 1px solid var(--primary);
     font-weight: 550;
     border-radius: 10px;
 }
 
-.drag_p{
+.drag_p {
     font-weight: 600px;
     padding-left: 20px;
+}
+
+.drag_line {
+    border-bottom: 1px solid rgb(177, 177, 177);
 }
