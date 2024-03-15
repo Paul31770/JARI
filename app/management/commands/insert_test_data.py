@@ -13,6 +13,7 @@ class Command(BaseCommand):
       UserProject = apps.get_model('app', 'UserProject')
       UserRole = apps.get_model('app', 'UserRole')
       RolePermission = apps.get_model('app', 'RolePermission')
+      Conges = apps.get_model('app', 'Conges')
 
       # Deleting all data
       User.objects.all().delete()
@@ -23,10 +24,17 @@ class Command(BaseCommand):
       UserProject.objects.all().delete()
       UserRole.objects.all().delete()
       RolePermission.objects.all().delete()
+      Conges.objects.all().delete()
 
       # Creation d'un utilisateur pour tester
       user = User(username="User1")
       user.save()
+
+      user2= User(username="User2")
+      user2.save()
+
+      user3 = User(username="User3")
+      user3.save()
 
       # Creation d'un projet pour tester
       project = Project(title="Création d'une site e-commerce", start_date="2024-03-10", delivery_date="2024-04-12", manager=user)
