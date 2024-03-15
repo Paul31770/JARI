@@ -7,50 +7,32 @@
   <button>Create Task</button>
 </a>
 <div class="drag_container">
-  <div class="drag_column" id="in_progress" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <p class="drag_p">In Progress</p>
-      {% for progress in progress%}
-      <div class="drag_task" id="{{progress.title}}" draggable="true" ondragstart="drag(event)">{{progress.title}}</div>
-      {% endfor %}
-  </div>
-  <div class="drag_column" id="paused" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <p class="drag_p">Paused</p>
-      {% for paused in paused%}
-      <div class="drag_task" id="{{paused.title}}" draggable="true" ondragstart="drag(event)">{{paused.title}}</div>
-      {% endfor %}
-  </div>
-  <div class="drag_column" id="completed" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <p class="drag_p">Completed</p>
-      {% for completed in completed%}
-      <div class="drag_task" id="{{completed.title}}" draggable="true" ondragstart="drag(event)">{{completed.title}}</div>
-      {% endfor %}
-  </div>
-  <div class="drag_column" id="validated" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <p class="drag_p">Validated</p>
-      {% for validated in validated%}
-      <div class="drag_task" id="{{validated.title}}" draggable="true" ondragstart="drag(event)">{{validated.title}}</div>
-      {% endfor %}
-  </div>
-  <div class="drag_column" id="planed" ondrop="drop(event)" ondragover="allowDrop(event)">
-      <p class="drag_p">Planed</p>
-      {% for planned in planned%}
-      <div class="drag_task" id="{{planned.title}}" draggable="true" ondragstart="drag(event)">{{planned.title}}</div>
-      {% endfor %}
-  </div>
+  {% for status, tasks in all_status.items %}
+      <div class="drag_column" id="{{status}}" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <p class="drag_p">{{status|capfirst}}</p>
+          {% for task in tasks %}
+            <div class="drag_task" id="{{task.title}}" draggable="true" ondragstart="drag(event)">
+            <p class="drag_para">{{task.title}}</p>
+            <p class="drag_para" id="drag_manager" >Manager : {{task.manager}}</p>
+            <p class="drag_para" id="drag_manager" >Advancement : {{task.advancement}} %</p>
+            
+            </div>
+          {% endfor %}
+      </div>
+      
+  {% endfor %}
 </div>
+
 <script>
   function allowDrop(event) {
-    console.log("JE SUIS DANS LE ALLOW")
     event.preventDefault();
   }
   
   function drag(event) {
-    console.log("JE SUIS DANS LE DRAG")
     event.dataTransfer.setData("text", event.target.id);
   }
   
   function drop(event) {
-    console.log("JE SUIS DANS LE DROP")
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
     var draggedElement = document.getElementById(data);
@@ -60,6 +42,9 @@
     if (column) {
         var div = draggedElement.innerText; 
         var columnId = column.id;
+        console.log(div)
+        console.log(div.substring(0, "Manager").trim())
+        console.log("COLUMN ", columnId)
         $.ajax({
             url: '/update_task_status/', 
             type: 'POST',

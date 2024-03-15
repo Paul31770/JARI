@@ -1,4 +1,7 @@
-
+.drag_para{
+    font-weight: normal;
+    font-size: 11px;
+}
 .drag_container {
     display: flex;
     width: 100%;
@@ -15,7 +18,9 @@ width: 25%;
 }
 
 
-
+#drag_manager{
+    padding-left: 5px;
+}
 .drag_column div {
 margin: 5px;
 padding: 10px;
@@ -30,5 +35,5 @@ cursor: move;
 
 .drag_p{
     font-weight: 600px;
+    padding-left: 20px;
 }
-
