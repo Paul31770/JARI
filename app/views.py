@@ -15,7 +15,7 @@ def drag_drop(request):
     all_status = {'progress': [], "paused": [], "completed": [], "validated": [], "planned": []}
     all_name = Task.objects.all()
     for task in all_name:
-        if task.status == "in_progress":
+        if task.status == "progress":
             all_status['progress'].append(task)
         elif task.status == "paused":
             all_status['paused'].append(task)
@@ -39,8 +39,6 @@ def update_task_status(request):
                 rows = cursor.fetchall()
                 for row in rows:
                     task_idd=row[0]
-            print("STATUS ", new_status)
-            print("TASKIDD ", task_idd)
             task = Task.objects.get(id=task_idd)
             task.status = new_status
             task.save()
