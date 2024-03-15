@@ -42,14 +42,13 @@
     if (column) {
         var div = draggedElement.innerText; 
         var columnId = column.id;
-        console.log(div)
-        console.log(div.substring(0, "Manager").trim())
-        console.log("COLUMN ", columnId)
+        var manager= div.indexOf("Manager")
+        var result= div.substring(0, manager).trim()
         $.ajax({
             url: '/update_task_status/', 
             type: 'POST',
             data: {
-                'task_id': div,
+                'task_id': result,
                 'new_status': columnId,
                 'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
