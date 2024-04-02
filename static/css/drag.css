@@ -23,7 +23,7 @@
     padding-left: 5px;
 }
 
-.drag_column div {
+.drag_column .drag_task {
     margin: 5px;
     padding: 10px;
     cursor: move;
@@ -42,4 +42,14 @@
 
 .drag_line {
     border-bottom: 1px solid rgb(177, 177, 177);
+}
+
+.button_drag{
+    padding: 3px 6px;
+}
+
+#button_edit{
+    padding-top: 5px;
+    width: 100%;
+    text-align: right;
 }
