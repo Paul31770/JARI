@@ -8,20 +8,17 @@
 </a>
 <div class="drag_container">
   {% for status, tasks in all_status.items %}
-  <div class="drag_column" id="{{status}}" ondrop="drop(event)" ondragover="allowDrop(event)">
-    <p class="drag_p"><strong>{{status|capfirst}}</strong></p>
-
+  <div class="drag_column drag_tasks" id="{{status}}" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <p class="drag_p drag_s_title">{{status|capfirst}}</p>
     {% for task in tasks %}
     <div class="drag_task" id="{{task.title}}" draggable="true" ondragstart="drag(event)">
-      <p class="drag_para"><strong>{{task.title}}</strong></p>
+      <p class="drag_para drag_t_title">{{task.title}}</p>
       <p class="drag_line"></p>
-      <p class="drag_para" id="drag_manager"><strong>Manager :</strong> {{task.manager}}</p>
-      <p class="drag_para" id="drag_manager"><strong>Advancement :</strong> {{task.advancement}} %</p>
-
+      <p class="drag_para" id="drag_manager">Manager : {{task.manager}}</p>
+      <p class="drag_para" id="drag_manager">Advancement : {{task.advancement}} %</p>
     </div>
     {% endfor %}
-  </div>
-
+</div>
   {% endfor %}
 </div>
 
