@@ -3,8 +3,8 @@
 /**********/
 
 :root{
-  --primary: rgb(111, 187, 129);
-  --accent: rgb(92, 156, 107);
+  --primary: rgb(84, 183, 107);
+  --accent: rgb(79, 156, 97);
   --primary-text-light: rgb(151, 151, 151);
   --primary-text: rgb(0, 0, 0);
   --box-shadow: 0px 30px 40px -25px;
@@ -67,9 +67,9 @@ a {
 /* UI COMPONENTS */
 /*****************/
 
-nav{
+nav {
   height: 59px;
-  border-bottom: 1px solid var(--primary);
+  border-bottom: 2px solid var(--primary);
   padding: 0 20px;
   display: flex;
   align-items: center;
@@ -110,6 +110,11 @@ button:hover {
   background-color: var(--bgColor);
   color: var(--primary-text);
   border: 2px solid var(--primary);
+}
+
+.btn-red {
+  background-color: #ff4d4d;
+  color: white;
 }
 
 .btn-secondary:hover{
