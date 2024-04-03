@@ -16,8 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
 from app.views import *
+from app import views
+
 
 urlpatterns = [
     path('', index),
@@ -29,4 +30,6 @@ urlpatterns = [
     path('create_task/<int:project_id>', create_task, name='create_task'),
     path('edit_task/<int:task_id>', edit_task, name='edit_task'),
     path('update_task_status/', update_task_status, name='update_task_status'),
+    path('conges/', views.liste_conges, name='liste_conges'),
+    path('ajouter_conges/', views.ajout_conges, name='ajouter_conges'),
 ]

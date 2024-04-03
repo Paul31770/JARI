@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from app.models import *
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.contrib.auth.models import User
 from app.forms import ProjectForm, TaskForm
 from django.shortcuts import redirect
 from django.http import JsonResponse
@@ -51,6 +52,8 @@ def update_task_status(request):
         except Task.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Task does not exist'})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
+from .forms import *
+
 
 def index(request):
     return HttpResponse("Home page")
@@ -124,3 +127,17 @@ def edit_task(request, task_id):
     else:
         form = TaskForm(instance=task, project_id=task.project_id)
     return render(request, 'createTask.html', {'form': form, 'task': task})
+
+def liste_conges(request):
+    conges = Conges.objects.all()
+    return render(request, 'conges.html', {'conges': conges})
+
+def ajout_conges(request):
+    if request.method == 'POST':
+        form = CongesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('liste_conges')
+    else:
+        form = CongesForm()
+    return render(request, 'ajouter_conges.html', {'form': form})

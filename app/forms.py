@@ -1,5 +1,5 @@
 from django import forms
-from .models import Project, Task
+from .models import Project, Task, Conges
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -34,4 +34,14 @@ class TaskForm(forms.ModelForm):
             'required_tasks': forms.CheckboxSelectMultiple(),
             'manager': forms.RadioSelect(),
             'assigned_users': forms.CheckboxSelectMultiple(),
+        }
+
+class CongesForm(forms.ModelForm):
+    malade = forms.ChoiceField(choices=[(False, 'Non'), (True, 'Oui')], initial=False)
+    class Meta:
+        model = Conges
+        fields = ['date_debut', 'date_fin', 'user', 'malade']
+        widgets = {
+            'date_debut': forms.DateInput(attrs={'type': 'date'}),
+            'date_fin': forms.DateInput(attrs={'type': 'date'}),
         }

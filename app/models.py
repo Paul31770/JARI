@@ -64,3 +64,12 @@ class UserRole(models.Model):
 class RolePermission(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
     permission = models.ForeignKey(Permission, on_delete=models.CASCADE)
+
+class Conges(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_conges')
+    date_debut = models.DateField()
+    date_fin = models.DateField()
+    malade = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
