@@ -39,7 +39,7 @@
                 <td>{% if conge.date_fin %}{{ conge.date_fin|date:'d/m/Y' }}{% else %}N/A{% endif %}</td>
                 <td>{{ conge.user.username }}</td>
                 <td>
-                    <button class="btn_rouge" href="{% url 'supprimer_conge' conge.id %}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce congé ?')">Supprimer</button>
+                    <a href="{% url 'supprimer_conge' conge.id %}" onclick="return confirm('{{conge.id}}Êtes-vous sûr de vouloir supprimer ce congé ?')"><button class="btn_suppr btn_rouge">Supprimer</button></a>
                 </td>
             </tr>
             {% endfor %}
