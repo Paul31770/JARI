@@ -116,6 +116,9 @@ button:hover {
   background-color: #ff4d4d;
   color: white;
 }
+.btn-red:hover{
+  background-color: rgb(186, 0, 0);
+}
 
 .btn-secondary:hover{
   color: white;
