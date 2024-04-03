@@ -109,3 +109,5 @@ class Command(BaseCommand):
       conges3.save()
 
       self.stdout.write(self.style.SUCCESS('Test data inserted successfully'))
+
+      

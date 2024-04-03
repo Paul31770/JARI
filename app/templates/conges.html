@@ -1,49 +1,31 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}JARI{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/projects.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/tasks.css' %}">
-    <link rel="stylesheet" href="{% static 'css/conges.css' %}">
-</head>
-<body>
-    <nav class="f ai">
-        {% include "navbar.html" %}
-    </nav>
 
-    <div class="header">
-        <h1>Liste des congés</h1>
-        <a href="{% url 'ajouter_conges' %}" class="button">Ajouter un congé</a>
-    </div>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Statut</th>
-                <th>Date de début</th>
-                <th>Date de fin</th>
-                <th>Utilisateur</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for conge in conges %}
-            <tr class="{% if conge.malade %}malade-oui{% endif %}">
-                <td>{% if conge.malade %} Arrêt maladie {% else %}Congé{% endif %}</td>
-                <td>{% if conge.date_debut %}{{ conge.date_debut|date:'d/m/Y' }}{% else %}N/A{% endif %}</td>
-                <td>{% if conge.date_fin %}{{ conge.date_fin|date:'d/m/Y' }}{% else %}N/A{% endif %}</td>
-                <td>{{ conge.user.username }}</td>
-                <td>
-                    <a href="{% url 'supprimer_conge' conge.id %}" onclick="return confirm('{{conge.id}}Êtes-vous sûr de vouloir supprimer ce congé ?')"><button class="btn_suppr btn_rouge">Supprimer</button></a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>    
-</body>
-</html>
+{% block content %}
+<h1>Liste des congés</h1>
+<a href="{% url 'ajouter_conges' %}"><button>Ajouter un congé</button></a>
+<table>
+    <thead>
+        <tr>
+            <th>Statut</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Utilisateur</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for conge in conges %}
+        <tr class="{% if conge.malade %}malade-oui{% endif %}">
+            <td>{% if conge.malade %} Arrêt maladie {% else %}Congé{% endif %}</td>
+            <td>{% if conge.date_debut %}{{ conge.date_debut|date:'d/m/Y' }}{% else %}N/A{% endif %}</td>
+            <td>{% if conge.date_fin %}{{ conge.date_fin|date:'d/m/Y' }}{% else %}N/A{% endif %}</td>
+            <td>{{ conge.user.username }}</td>
+            <td>
+                <a href="{% url 'supprimer_conge' conge.id %}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce congé ?')"><button class="btn-red">Supprimer</button></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
