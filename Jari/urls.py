@@ -19,7 +19,6 @@ from django.urls import path
 from app.views import *
 from app import views
 
-
 urlpatterns = [
     path('', projects, name='projects'),
     path('project/<int:project_id>/', project, name='project'),
