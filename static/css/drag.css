@@ -1,6 +1,6 @@
 .drag_para {
     font-weight: normal;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .drag_container {
@@ -65,4 +65,5 @@
 .drag_line {
     border-bottom: 1px solid rgb(177, 177, 177);
     width: 90%;
+    margin-bottom: 3px;
 }
