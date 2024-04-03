@@ -4,7 +4,8 @@
 {% block content %}
 <h1>Liste des congés</h1>
 <a href="{% url 'ajouter_conges' %}"><button>Ajouter un congé</button></a>
-<table>
+<div class="tab-wrapper">
+<table class="rounded">
     <thead>
         <tr>
             <th>Statut</th>
@@ -28,4 +29,5 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}
