@@ -98,4 +98,14 @@ class Command(BaseCommand):
       rolepermission = RolePermission(role=role, permission=permission)
       rolepermission.save()
 
+      # Création de congés
+      conges1 = Conges(user=user, date_debut="2024-03-15", date_fin="2024-03-20", malade=False)
+      conges1.save()
+
+      conges2 = Conges(user=user2, date_debut="2024-04-01", date_fin="2024-04-05", malade=True)
+      conges2.save()
+
+      conges3 = Conges(user=user3, date_debut="2024-04-10", date_fin="2024-04-15", malade=False)
+      conges3.save()
+
       self.stdout.write(self.style.SUCCESS('Test data inserted successfully'))

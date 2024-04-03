@@ -53,3 +53,15 @@ th {
 .malade-oui {
     color: red;
 }
+
+.btn_rouge {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.btn_rouge:hover {
+    background-color: rgb(129, 0, 0);
+}

@@ -147,3 +147,9 @@ def ajout_conges(request):
     else:
         form = CongesForm()
     return render(request, 'ajouter_conges.html', {'form': form})
+
+def supprimer_conge(request, conge_id):
+    conge = get_object_or_404(Conges, id=conge_id)    
+    conge.delete()
+
+    return redirect('liste_conges')
