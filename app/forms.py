@@ -1,5 +1,5 @@
 from django import forms
-from .models import Project, Task, Conges
+from .models import Project, Task, Conges, User
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -44,4 +44,12 @@ class CongesForm(forms.ModelForm):
         widgets = {
             'date_debut': forms.DateInput(attrs={'type': 'date'}),
             'date_fin': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+class LoginForm(forms.ModelForm):
+    class Meta:
+        model = User #rajouter password dans db
+        fields = ['username', 'password']
+        widgets = {
+            'password' : forms.PasswordInput()
         }
