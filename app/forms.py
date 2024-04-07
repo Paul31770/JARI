@@ -14,15 +14,28 @@ class ProjectForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-
-        # On récupère le project_id
+        # Récupérer l'ID du projet
         project_id = kwargs.pop('project_id', None)
         super(TaskForm, self).__init__(*args, **kwargs)
 
-        # On filtre les sous-tâches et les tâches requises pour qu'elles soient liées au même projet que la tâche courante
+        # Filtrer les sous-tâches et les tâches requises pour qu'elles soient liées au même projet que la tâche courante
         if project_id:
             self.fields['subtasks'].queryset = Task.objects.filter(project_id=project_id)
             self.fields['required_tasks'].queryset = Task.objects.filter(project_id=project_id)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        title = cleaned_data.get("title")
+        description = cleaned_data.get("description")
+        start_date = cleaned_data.get("start_date")
+        priority = cleaned_data.get("priority")
+        est_days = cleaned_data.get("est_days")
+        
+        # Si l'une des informations requises est manquante, définir la tâche comme étant en état "paused"
+        if not (start_date and priority and est_days):
+            cleaned_data['status'] = 'paused'
+        
+        return cleaned_data
 
     class Meta:
         model = Task
@@ -35,7 +48,6 @@ class TaskForm(forms.ModelForm):
             'manager': forms.RadioSelect(),
             'assigned_users': forms.CheckboxSelectMultiple(),
         }
-
 class CongesForm(forms.ModelForm):
     malade = forms.ChoiceField(choices=[(False, 'Non'), (True, 'Oui')], initial=False)
     class Meta:

@@ -14,8 +14,17 @@
     <div class="drag_task" id="{{task.title}}" draggable="true" ondragstart="drag(event)">
       <p class="drag_para drag_t_title">{{task.title}}</p>
       <p class="drag_line"></p>
+
+      <p class="drag_para" id="drag_manager"><strong>Manager :</strong> {{task.manager}}</p>
+      <p class="drag_para" id="drag_manager"><strong>Advancement :</strong> <input id="input_drag" type="number" value="{{task.advancement}}" onchange="updateAdvancement(event, '{{ task.id }}')"> </p>
+      <div id="div_edit_drag">
+        <button id="button_edit">Edit</button>
+        <button id="button_edit" onclick="supprTask(event, '{{ task.id }}')">Supr</button>
+      </div>
+
       <p class="drag_para" id="drag_manager">Manager : {{task.manager}}</p>
       <p class="drag_para" id="drag_manager">Advancement : {{task.advancement}} %</p>
+
     </div>
     {% endfor %}
 </div>
@@ -23,6 +32,48 @@
 </div>
 
 <script>
+    function supprTask(event, taskId){
+      console.log("JE SUIS DANS LE SUPPR")
+      $.ajax({
+        url: '/supprTask/', 
+        type: 'DELETE',
+        data: {
+          'task_id': taskId,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+        },
+        success: function(response) {
+          console.log(response);
+          // Faire quelque chose après la suppression réussie, comme recharger la page ou mettre à jour l'interface utilisateur.
+        },
+        error: function(error) {
+          console.error(error);
+          // Gérer les erreurs ici, par exemple afficher un message d'erreur à l'utilisateur.
+        }
+      });
+  }
+
+  function updateAdvancement(event, taskId) {
+    console.log("je suis dans la")
+    var newValue = event.target.value;
+    $.ajax({
+      url: '/update_task_advancement/', 
+      type: 'POST',
+      data: {
+        'task_id': taskId,
+        'new_value': newValue,
+        'csrfmiddlewaretoken': '{{ csrf_token }}'
+      },
+      success: function(response) {
+        console.log(response);
+      },
+      error: function(error) {
+        console.error(error);
+      }
+    });
+  }
   function allowDrop(event) {
     event.preventDefault();
   }
@@ -37,8 +88,7 @@
     var draggedElement = document.getElementById(data);
     var column = event.target.closest('.drag_column');
 
-    // Vérifie si l'élément est déposé dans une colonne
-    if (column) {
+        if (column) {
       var div = draggedElement.innerText;
       var columnId = column.id;
       var manager = div.indexOf("Manager")

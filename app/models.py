@@ -33,7 +33,7 @@ class Task(models.Model):
         ('validated', 'Validated'),
         ('paused', 'Paused'),
     )
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='paused')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     start_date = models.DateField(null=True, blank=True)
     priority = models.IntegerField()
     est_days = models.IntegerField()
@@ -64,12 +64,11 @@ class UserRole(models.Model):
 class RolePermission(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
     permission = models.ForeignKey(Permission, on_delete=models.CASCADE)
-
 class Conges(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_conges')
     date_debut = models.DateField()
     date_fin = models.DateField()
     malade = models.BooleanField(default=False)
 
-    def __str__(self):
+    def str(self):
         return self.user.username

@@ -6,12 +6,7 @@ from app.forms import ProjectForm, TaskForm
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.db import connection
-from app.utils import update_project_advancement, update_project_status
 
-
-def index(request):
-    return HttpResponse("Home page")
-    
 def drag_drop(request, project_id):
     progress=[]
     paused=[]
@@ -38,7 +33,24 @@ def drag_drop(request, project_id):
         project = None
     return ({'all_status': all_status})
 
+def update_task_advancement(request):
+    if request.method == 'POST':
+        task_id = request.POST.get('task_id')
+        new_advancement = request.POST.get('new_value')
+        
+        try:
+            task = Task.objects.get(id=task_id)
+            task.advancement = new_advancement
+            task.save()
+            return JsonResponse({'success': True})
+        except Task.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Task does not exist'})
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
+def supprTask(request):
+    task_id = request.GET.get('task_id')
+    print("TASK ID:", task_id)
+    
 def update_task_status(request):
     if request.method == 'POST':
         task_id = request.POST.get('task_id')
@@ -53,14 +65,15 @@ def update_task_status(request):
             task = Task.objects.get(id=task_idd)
             task.status = new_status
             task.save()
-            update_project_advancement(task.project_id)
-            update_project_status(task.project_id)
             return JsonResponse({'success': True})
         except Task.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Task does not exist'})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
 from .forms import *
 
+
+def index(request):
+    return HttpResponse("Home page")
 
 def project(request, project_id):
     context=drag_drop(request, project_id)
@@ -85,8 +98,6 @@ def create_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
-            if form.instance.start_date != None:
-                form.instance.status = 'planned'
             form.save()
             return redirect(projects)
     else:
