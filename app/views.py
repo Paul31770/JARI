@@ -7,6 +7,9 @@ from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.db import connection
 from app.utils import update_project_advancement, update_project_status
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from app.models import User
 
 
 def index(request):
@@ -153,3 +156,20 @@ def supprimer_conge(request, conge_id):
     conge.delete()
 
     return redirect('liste_conges')
+
+def login_user(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('projects')
+            else :
+                return redirect('login_user')
+    else:
+        form = LoginForm()
+        return render(request, 'login.html', {'form': form})

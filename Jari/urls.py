@@ -31,4 +31,5 @@ urlpatterns = [
     path('conges/', views.liste_conges, name='liste_conges'),
     path('ajouter_conges/', views.ajout_conges, name='ajouter_conges'),
     path('conges/supprimer/<int:conge_id>/', supprimer_conge, name='supprimer_conge'),
+    path('login_user/', login_user, name="login_user")
 ]
