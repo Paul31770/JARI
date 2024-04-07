@@ -1,5 +1,11 @@
 # JARI App
 
+## Installation
+lancer le script `install.sh` pour installer les dépendances et lancer le serveur de développement
+
+```bash
+./install.sh
+```
 
 
 ## Commandes utiles
@@ -22,4 +28,3 @@ Ajouter des données de test
 ```bash
 python3 manage.py insert_test_data
 ```
-

@@ -19,12 +19,10 @@ from django.urls import path
 from app.views import *
 from app import views
 
-
 urlpatterns = [
     path('', projects, name='projects'),
     path('project/<int:project_id>/', project, name='project'),
     path('admin/', admin.site.urls),
-    # path('projects/', projects, name='projects'),
     path('create_project/', create_project, name='create_project'),
     path('edit_project/<int:project_id>', edit_project, name='edit_project'),
     path('create_task/<int:project_id>', create_task, name='create_task'),
@@ -34,4 +32,5 @@ urlpatterns = [
     path('update_task_advancement/', update_task_advancement, name="update_task_advancement"),
     path('conges/', views.liste_conges, name='liste_conges'),
     path('ajouter_conges/', views.ajout_conges, name='ajouter_conges'),
+    path('conges/supprimer/<int:conge_id>/', supprimer_conge, name='supprimer_conge'),
 ]

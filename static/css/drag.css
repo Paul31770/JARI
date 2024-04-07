@@ -1,6 +1,6 @@
 .drag_para {
     font-weight: normal;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .drag_container {
@@ -9,39 +9,64 @@
 }
 
 .drag_column {
-    border: 1px solid var(--primary);
-    box-shadow: 0px 10px 30px -25px var(--primary);
-    border-radius: 10px;
+    border: 3px solid var(--primary);
+    box-shadow: 0px 20px 30px -25px var(--primary);
+    border-radius: 15px;
     padding: 5px;
     margin: 10px;
     min-height: 350px;
     width: 25%;
+    background-color: white;
 }
 
 
-#drag_manager {
-    padding-left: 5px;
+.drag_tasks{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
+
 
 .drag_column .drag_task {
+.drag_column {
     margin: 5px;
     padding: 10px;
     cursor: move;
 }
 
 .drag_task {
-    border: 1px solid var(--primary);
+    border: 2px solid var(--primary);
     font-weight: 550;
     border-radius: 10px;
+    padding: 10px
 }
 
 .drag_p {
-    font-weight: 600px;
-    padding-left: 20px;
+    padding-left: 5px;
+}
+
+.drag_t_title {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.drag_s_title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.drag_p::after {
+    content: " ";
+    display: block;
+    border-bottom: 2px solid rgb(177, 177, 177);
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 90%;
 }
 
 .drag_line {
     border-bottom: 1px solid rgb(177, 177, 177);
+
 }
 
 .button_drag{
@@ -64,4 +89,6 @@
 #div_edit_drag{
     padding-top: 5px;
     text-align: right;
+    width: 90%;
+    margin-bottom: 3px;
 }
