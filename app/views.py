@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.db import connection
 
+
 def drag_drop(request, project_id):
     progress=[]
     paused=[]
@@ -48,8 +49,20 @@ def update_task_advancement(request):
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
 def supprTask(request):
-    task_id = request.GET.get('task_id')
-    print("TASK ID:", task_id)
+    if request.method == 'DELETE':
+        data = json.loads(request.body)
+        task_id = data.get('task_id')
+        if task_id is not None:
+            try:
+                task = Task.objects.get(id=task_id)
+                task.delete()
+                return JsonResponse({'message': 'Task deleted successfully.'})
+            except Task.DoesNotExist:
+                return JsonResponse({'error': 'Task does not exist.'}, status=404)
+        else:
+            return JsonResponse({'error': 'Task ID not provided.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=405)
     
 def update_task_status(request):
     if request.method == 'POST':

@@ -2,7 +2,7 @@
 
 ## Installation
 lancer le script `install.sh` pour installer les dépendances et lancer le serveur de développement
-
+Si vous voulez regarder le projet sur un navigateur il faudra choisir chrome
 ```bash
 ./install.sh
 ```

@@ -22,9 +22,6 @@
         <button id="button_edit" onclick="supprTask(event, '{{ task.id }}')">Supr</button>
       </div>
 
-      <p class="drag_para" id="drag_manager">Manager : {{task.manager}}</p>
-      <p class="drag_para" id="drag_manager">Advancement : {{task.advancement}} %</p>
-
     </div>
     {% endfor %}
 </div>
@@ -32,31 +29,28 @@
 </div>
 
 <script>
-    function supprTask(event, taskId){
-      console.log("JE SUIS DANS LE SUPPR")
-      $.ajax({
-        url: '/supprTask/', 
+  function supprTask(event, taskId) {
+    $.ajax({
+        url: '/supprTask/',
         type: 'DELETE',
-        data: {
-          'task_id': taskId,
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
+        contentType: 'application/json',
+        data: JSON.stringify({ 'task_id': taskId }),
         beforeSend: function(xhr) {
-          xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+            xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
         },
         success: function(response) {
-          console.log(response);
-          // Faire quelque chose après la suppression réussie, comme recharger la page ou mettre à jour l'interface utilisateur.
+            console.log(response);
+            // Traitez la réponse ici
         },
         error: function(error) {
-          console.error(error);
-          // Gérer les erreurs ici, par exemple afficher un message d'erreur à l'utilisateur.
+            console.error(error);
         }
-      });
-  }
+    });
+}
+
+
 
   function updateAdvancement(event, taskId) {
-    console.log("je suis dans la")
     var newValue = event.target.value;
     $.ajax({
       url: '/update_task_advancement/', 
