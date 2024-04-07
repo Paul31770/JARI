@@ -33,7 +33,24 @@ def drag_drop(request, project_id):
         project = None
     return ({'all_status': all_status})
 
+def update_task_advancement(request):
+    if request.method == 'POST':
+        task_id = request.POST.get('task_id')
+        new_advancement = request.POST.get('new_value')
+        
+        try:
+            task = Task.objects.get(id=task_id)
+            task.advancement = new_advancement
+            task.save()
+            return JsonResponse({'success': True})
+        except Task.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Task does not exist'})
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
+def supprTask(request):
+    task_id = request.GET.get('task_id')
+    print("TASK ID:", task_id)
+    
 def update_task_status(request):
     if request.method == 'POST':
         task_id = request.POST.get('task_id')

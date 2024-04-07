@@ -50,6 +50,18 @@
 
 #button_edit{
     padding-top: 5px;
-    width: 100%;
+}
+
+#input_drag{
+    width: 80px;
+    height: 25px;
+}
+
+.button_drag{
+    padding: 3px 6px;
+}
+
+#div_edit_drag{
+    padding-top: 5px;
     text-align: right;
 }

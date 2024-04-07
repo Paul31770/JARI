@@ -21,15 +21,17 @@ from app import views
 
 
 urlpatterns = [
-    path('', index),
+    path('', projects, name='projects'),
     path('project/<int:project_id>/', project, name='project'),
     path('admin/', admin.site.urls),
-    path('projects/', projects, name='projects'),
+    # path('projects/', projects, name='projects'),
     path('create_project/', create_project, name='create_project'),
     path('edit_project/<int:project_id>', edit_project, name='edit_project'),
     path('create_task/<int:project_id>', create_task, name='create_task'),
     path('edit_task/<int:task_id>', edit_task, name='edit_task'),
     path('update_task_status/', update_task_status, name='update_task_status'),
+    path('supprTask/', supprTask, name='supprTask'),
+    path('update_task_advancement/', update_task_advancement, name="update_task_advancement"),
     path('conges/', views.liste_conges, name='liste_conges'),
     path('ajouter_conges/', views.ajout_conges, name='ajouter_conges'),
 ]
